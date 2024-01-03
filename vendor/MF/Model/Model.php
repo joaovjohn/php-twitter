@@ -1,6 +1,5 @@
 <?php
 
-
 namespace MF\Model;
 
 abstract class Model {
@@ -11,6 +10,5 @@ abstract class Model {
 		$this->db = $db;
 	}
 }
-
 
 ?>

@@ -8,17 +8,23 @@ class Route extends Bootstrap {
 
 	protected function initRoutes() {
 
-		$routes['home'] = array(
+		$routes['home'] = [
 			'route' => '/',
 			'controller' => 'indexController',
 			'action' => 'index'
-		);
+		];
 
-		$routes['inscreverse'] = array(
+		$routes['inscreverse'] = [
 			'route' => '/inscreverse',
 			'controller' => 'indexController',
 			'action' => 'inscreverse'
-		);
+		];
+
+		$routes['registrar'] = [
+			'route' => '/registrar',
+			'controller' => 'indexController',
+			'action' => 'registrar'
+		];
 
 		$this->setRoutes($routes);
 	}
