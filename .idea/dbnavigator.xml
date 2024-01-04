@@ -13,7 +13,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="90f0bc53-cb84-45e7-a12d-04b65bf4dec5">
-      <console name="twitter" type="STANDARD" schema="twitter" session="Main"><![CDATA[select * from usuario;]]></console>
+      <console name="twitter" type="STANDARD" schema="twitter" session="Main"><![CDATA[select * from usuarios;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
