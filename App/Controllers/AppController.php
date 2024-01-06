@@ -8,13 +8,39 @@ class AppController extends Action
 {
     public function timeline()
     {
+        $this->validAuth();
+
+        $tweetModel= Container::getModel('Tweet');
+        $tweetModel->__set('id_usuario', $_SESSION['id']);
+
+        $tweets = $tweetModel->getAll();
+
+        $this->view->tweets = $tweets;
+
+        $this->render('timeline');
+    }
+
+    public function tweet()
+    {
+        $this->validAuth();
+
+        $tweetModel = Container::getModel('Tweet');
+        $tweetModel->__set('tweet', $_POST['tweet']);
+        $tweetModel->__set('id_usuario', $_SESSION['id']);
+
+        $tweetModel->saveTweet();
+
+        header('Location: /timeline');
+    }
+
+    private function validAuth()
+    {
         session_start();
 
-        // se não tiver sessão vinculada, fica na pagina de login
         if(empty($_SESSION['id']) && empty($_SESSION['nome'])) {
             header('Location: /?login=erro');
         } else {
-            $this->render('timeline');
+            return true;
         }
     }
 }
