@@ -33,6 +33,27 @@ class AppController extends Action
         header('Location: /timeline');
     }
 
+    public function seguir()
+    {
+        $this->validAuth();
+        echo '<br/><br/><br/><br/><br/>';
+
+        $pesquisarPor = $_GET['pesquisarPor'] ?? '';
+
+        $usuarios = [];
+
+        if($pesquisarPor) {
+            $usuarioModel = Container::getModel('Usuario');
+            $usuarioModel->__set('nome', $pesquisarPor);
+            $usuarios = $usuarioModel->getUsuarioPorNome();
+        }
+
+        $this->view->usuarios = $usuarios;
+
+        $this->render('seguir');
+
+    }
+
     private function validAuth()
     {
         session_start();
