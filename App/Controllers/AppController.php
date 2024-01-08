@@ -36,7 +36,6 @@ class AppController extends Action
     public function seguir()
     {
         $this->validAuth();
-        echo '<br/><br/><br/><br/><br/>';
 
         $pesquisarPor = $_GET['pesquisarPor'] ?? '';
 
@@ -53,6 +52,26 @@ class AppController extends Action
 
         $this->render('seguir');
 
+    }
+
+    public function acao() {
+
+        $this->validAuth();
+
+        $acao = $_GET['acao'] ?? '';
+        $idUsuarioSeguindo = $_GET['id_usuario'] ?? '';
+
+        $usuarioSeguidorModel = Container::getModel('UsuarioSeguidor');
+        $usuarioSeguidorModel->__set('id_usuario', $_SESSION['id']);
+
+        if($acao == 'seguir') {
+            $usuarioSeguidorModel->seguirUsuario($idUsuarioSeguindo);
+
+        } elseif ($acao == 'deixar_de_seguir') {
+            $usuarioSeguidorModel->deixarSeguirUsuario($idUsuarioSeguindo);
+        }
+
+        header('Location: /seguir');
     }
 
     private function validAuth()
