@@ -45,6 +45,7 @@ class AppController extends Action
         if($pesquisarPor) {
             $usuarioModel = Container::getModel('Usuario');
             $usuarioModel->__set('nome', $pesquisarPor);
+            $usuarioModel->__set('id', $_SESSION['id']);
             $usuarios = $usuarioModel->getUsuarioPorNome();
         }
 
