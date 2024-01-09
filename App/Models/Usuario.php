@@ -101,6 +101,26 @@ class Usuario extends Model {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function getAll() {
+        $query = "select 
+                    u.id, u.nome, u.email, (
+                        select count(*)
+                        from
+                            usuarios_seguidores as us
+                        where us.id_usuario = :id_usuario and
+                              us.id_usuario_seguindo = u.id
+                    ) as seguindo_sn 
+                 from 
+                    usuarios as u
+                 where 
+                     u.nome != '' and u.id != :id_usuario";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_usuario', $this->__get('id'));
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function getNomeUsuario() {
         $query = "select nome from usuarios where id = :id_usuario";
 
