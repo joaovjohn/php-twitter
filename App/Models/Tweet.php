@@ -18,17 +18,29 @@ class Tweet extends Model
         $this->$atributo = $valor;
     }
 
-    public function saveTweet() {
+    public function saveTweet() : bool
+    {
         $query = "insert into tweets(id_usuario, tweet) values(:id_usuario, :tweet)";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
         $stmt->bindValue(':tweet', $this->__get('tweet'));
         $stmt->execute();
 
-        return $this;
+        return true;
     }
 
-    public function getAll() {
+    public function removeTweet($idTweet)
+    {
+        $query = "delete from tweets where id = :id_tweet";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_tweet', $idTweet);
+        $stmt->execute();
+
+        return true;
+    }
+
+    public function getAll() : array
+    {
         $query = "
             select 
                 t.id, 
