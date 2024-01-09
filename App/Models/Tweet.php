@@ -53,4 +53,20 @@ class Tweet extends Model
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function getTotalTweets() : array
+    {
+        $query = "select
+                    COUNT(tweet) AS total_tweets
+                  from
+                    tweets
+                  where
+                    id_usuario = :id_usuario";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
 }

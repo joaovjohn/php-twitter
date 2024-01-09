@@ -44,4 +44,37 @@ class UsuarioSeguidor extends Model
 
         return true;
     }
+
+    public function getTotalSeguindo()
+    {
+        $query = "select
+                    COUNT(id_usuario_seguindo) AS seguindo
+                  from
+                    usuarios_seguidores
+                  where
+                    id_usuario = :id_usuario";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+
+    }
+
+    public function getTotalSeguidores()
+    {
+        $query = "select
+                    COUNT(id_usuario_seguindo) AS seguidores
+                  from
+                    usuarios_seguidores
+                  where
+                    id_usuario_seguindo = :id_usuario";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
 }

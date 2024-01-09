@@ -100,6 +100,15 @@ class Usuario extends Model {
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
-}
 
+    public function getNomeUsuario() {
+        $query = "select nome from usuarios where id = :id_usuario";
+
+        $stmt= $this->db->prepare($query);
+        $stmt->bindValue(':id_usuario', $this->__get('id'));
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+}
 ?>
